@@ -1,11 +1,3 @@
-from dotenv import load_dotenv
-load_dotenv()  # Initialize environment variables at system startup
-import os
-from fastapi.templating import Jinja2Templates
-
-# Change your old templates line to look exactly like this:
-current_dir = os.path.dirname(os.path.abspath(__file__))
-templates = Jinja2Templates(directory=os.path.join(current_dir, "templates"))
 import os
 import uuid
 import time
@@ -17,12 +9,19 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from supabase import create_client, Client
 from engine import secure_repurpose_pipeline, validate_youtube_url_securely
+from dotenv import load_dotenv
+
+# 1. Initialize environment variables at system startup
+load_dotenv()
 
 app = FastAPI(title="VectoText Backend Engine", version="1.1.0")
 
-# Setup routing for static assets and HTML layout templates
-app.mount("/static", StaticFiles(directory="static"), name="static")
-templates = Jinja2Templates(directory="templates")
+# 2. Establish dynamic absolute paths for assets so the cloud never loses them
+current_dir = os.path.dirname(os.path.abspath(__file__))
+templates = Jinja2Templates(directory=os.path.join(current_dir, "templates"))
+
+# 3. Mount static assets using absolute path mapping
+app.mount("/static", StaticFiles(directory=os.path.join(current_dir, "static")), name="static")
 
 # Configure CORS policies for frontend connectivity
 app.add_middleware(
@@ -69,9 +68,9 @@ def execute_asynchronous_secure_job(raw_url: str, target_job_uuid: str, strategy
         }).eq("id", str(target_job_uuid)).execute()
 
 # --- Page Render Endpoints ---
-    @app.get("/")
-    async def read_root(request: Request):
-     return templates.TemplateResponse(request=request, name="index.html", context={"request": request})
+@app.get("/")
+async def read_root(request: Request):
+    return templates.TemplateResponse(request=request, name="index.html", context={"request": request})
 
 # --- Core Business API Routes ---
 @app.post("/api/repurpose", status_code=202)
