@@ -66,7 +66,7 @@ def execute_asynchronous_secure_job(raw_url: str, target_job_uuid: str, strategy
 # --- Page Render Endpoints ---
 @app.get("/", response_class=HTMLResponse)
 async def read_root(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
+    return templates.TemplateResponse(request=request, name="index.html", context={"request": request})
 
 # --- Core Business API Routes ---
 @app.post("/api/repurpose", status_code=202)
