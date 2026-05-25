@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-purple: #9B4DFF;
+  --color-brand-pink: #FF6B9B;
+  --color-bubble-bg: #FDF8FF;
+}
+
+body {
+  background-color: var(--color-bubble-bg);
+  color: #1E1B4B; /* Soft dark indigo for highly readable text */
+  font-family: ui-rounded, system-ui, sans-serif; /* A cute, friendly rounded font aesthetic */
+}

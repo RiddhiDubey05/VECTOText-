@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VectoText Engine // Content Repurposing Suite</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+    <canvas id="bgCanvas"></canvas>
+
+    <div class="app-container">
+        
+        <header>
+            <div class="logo">VectoText<span>.ai</span></div>
+            <p class="subtitle">Automated Video-to-Text Pipeline for Cross-Platform Content Operations</p>
+        </header>
+
+        <main class="main-card">
+            <div class="input-group">
+                <label for="formatStrategy">Output Blueprint Format</label>
+                <select id="formatStrategy">
+                    <option value="full_suite">Full Operational Suite (Technical Blog + LinkedIn Threads)</option>
+                    <option value="newsletter">Executive Brief (SaaS Email Newsletter Rewrites)</option>
+                    <option value="twitter_thread">Viral Distribution Matrix (X/Twitter Thread Breakdown)</option>
+                </select>
+
+                <label for="videoUrl">Source Video URL (YouTube)</label>
+                <input type="url" id="videoUrl" placeholder="Enter valid video URL link to process..." required>
+                <button id="submitBtn">Initialize Pipeline</button>
+            </div>
+
+            <div id="statusContainer" class="status-box hidden">
+                <div class="spinner"></div>
+                <p id="statusText">Queuing background worker threads...</p>
+            </div>
+        </main>
+
+        <section id="resultPanel" class="result-card hidden">
+            <div class="result-header">
+                <h2>Generated Production Output</h2>
+                <div class="utility-actions">
+                    <button id="copyBtn" class="btn-secondary">Copy Content</button>
+                    <button id="downloadBtn" class="btn-secondary">Export as .md</button>
+                </div>
+            </div>
+            
+            <div class="workspace-grid">
+                <aside class="history-sidebar">
+                    <h3>Session Ledger</h3>
+                    <div id="historyList" class="history-list">
+                        </div>
+                </aside>
+
+                <div id="markdownOutput" class="content-display"></div>
+            </div>
+        </section>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>
