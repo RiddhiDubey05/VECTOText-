@@ -1,6 +1,11 @@
 from dotenv import load_dotenv
 load_dotenv()  # Initialize environment variables at system startup
+import os
+from fastapi.templating import Jinja2Templates
 
+# Change your old templates line to look exactly like this:
+current_dir = os.path.dirname(os.path.abspath(__file__))
+templates = Jinja2Templates(directory=os.path.join(current_dir, "templates"))
 import os
 import uuid
 import time
